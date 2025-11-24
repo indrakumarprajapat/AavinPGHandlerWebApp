@@ -1,26 +1,27 @@
- 
+import { GetServerSideProps } from "next";
+
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
+  const rid = "EP_1762514248206_1";
+  const crn = "CRN_1762514248206_1";
+  const amt = 320;
+
+  // Your backend endpoint (LoopBack / Next API / Axis)
+  
+  const redirectUrl = `http://15.206.249.5:3042/bapi/orders/easypay/initiate?rid=${rid}&crn=${crn}&amt=${amt}`;
+  // const redirectUrl = `https://aavin-api.boom123.in/bapi/orders/easypay/initiate?rid=${rid}&crn=${crn}&amt=${amt}`;
+
+  // Perform the redirect from the server
+  res.writeHead(302, { Location: redirectUrl });
+  res.end();
+
+  // This line never runs because of the redirect
+  return { props: {} };
+};
 
 export default function Home() {
-  const handleClick = () => {
-          const rid = "EP_1762514248206_1";
-      const crn = "CRN_1762514248206_1";
-      const amt = 320;
-      // ✅ Redirect to your Next.js route that posts to Axis
-      window.location.href = `https://aavin-api.boom123.in/bapi/orders/easypay/initiate?rid=${rid}&crn=${crn}&amt=${amt}`;
-
-      // 🔸 Or, if you want to go directly to Axis (for UAT testing only):
-      // window.location.href = "https://uat-etendering.axisbank.co.in/easypay2.0/frontend/api/payment";
-  };
-
   return (
-    <div className="h-screen flex flex-col justify-center items-center text-center bg-gradient-to-b from-white to-gray-100 dark:from-black dark:to-gray-900 text-black dark:text-white">
-      <h1 className="text-3xl font-bold mb-4">Testing EasyPay</h1>
-      <button
-        onClick={handleClick}
-        className="px-6 py-2 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-md"
-      >
-        Click Me
-      </button>
+    <div className="h-screen flex items-center justify-center text-center">
+      <h1>Redirecting to EasyPay...</h1>
     </div>
   );
 }
