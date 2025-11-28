@@ -1,11 +1,11 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams();
-  const [countdown, setCountdown] = useState(50);
+
   const paymentData = {
     status: searchParams.get('status') || '',
     orderId: searchParams.get('orderId') || '',
@@ -14,18 +14,7 @@ function PaymentSuccessContent() {
     trackingId: searchParams.get('trackingId') || ''
   };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
 
-    return () => clearInterval(timer);
-  }, []);
 
   const getStatusConfig = () => {
     switch (paymentData.status) {
@@ -117,7 +106,7 @@ function PaymentSuccessContent() {
                 )}
                 <div className="flex justify-between py-2">
                   <span className="text-gray-700">Date & Time</span>
-                  <span className="text-sm text-gray-900">Transaction Completed</span>
+                  <span className="text-sm text-gray-900">{new Date().toLocaleString()}</span>
                 </div>
               </div>
             </div>
@@ -135,9 +124,12 @@ function PaymentSuccessContent() {
               {paymentData.status === 'success' ? 'Continue Shopping' : 'Try Again'}
             </button> */}
             
-            <div className="w-full bg-green-100 text-green-700 py-3 px-4 rounded-lg text-center font-medium">
-              Payment Successful! Closing in {countdown}s
-            </div>
+            <button
+              onClick={() => window.close()}
+              className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+            >
+              Close Window
+            </button>
           </div>
         </div>
       </div>
