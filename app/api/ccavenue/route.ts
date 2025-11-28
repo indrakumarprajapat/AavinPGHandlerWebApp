@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const encResp = formData.get('encResp') as string;
     if (!encResp) {
-      return NextResponse.redirect(new URL('/payment/success?status=error&message=No response data', request.url));
+      return NextResponse.redirect(new URL(`${process.env.BASE_URL}payment/success?status=error&message=No response data`));
     }
 
     const backendResponse = await fetch(process.env.BACKEND_API_URL!, {
@@ -36,10 +36,10 @@ export async function POST(request: NextRequest) {
       message: `Payment ${data.order_status.toLowerCase()}. Mode: ${data.payment_mode || 'N/A'}`
     });
     
-    return NextResponse.redirect(new URL(`/payment/success?${params.toString()}`, request.url));
+    return NextResponse.redirect(new URL(`${process.env.BASE_URL}payment/success?${params.toString()}`));
     
   } catch (error) {
     console.error('CCAvenue response processing error:', error);
-    return NextResponse.redirect(new URL('/payment/success?status=error&message=Processing failed', request.url));
+    return NextResponse.redirect(new URL(`${process.env.BASE_URL}payment/success?status=error&message=Processing failed`));
   }
 }
