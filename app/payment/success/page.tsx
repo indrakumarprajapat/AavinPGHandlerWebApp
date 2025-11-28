@@ -1,10 +1,11 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 function PaymentSuccessContent() {
   const searchParams = useSearchParams();
+  const [countdown, setCountdown] = useState(5);
   const paymentData = {
     status: searchParams.get('status') || '',
     orderId: searchParams.get('orderId') || '',
@@ -12,6 +13,20 @@ function PaymentSuccessContent() {
     message: searchParams.get('message') || '',
     trackingId: searchParams.get('trackingId') || ''
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          window.close();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const getStatusConfig = () => {
     switch (paymentData.status) {
@@ -125,7 +140,7 @@ function PaymentSuccessContent() {
               onClick={() => window.close()}
               className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors font-medium"
             >
-              Close Window
+              Close Window ({countdown}s)
             </button>
           </div>
         </div>
