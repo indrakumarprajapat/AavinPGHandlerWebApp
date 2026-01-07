@@ -1,15 +1,22 @@
 module.exports = {
   apps: [
     {
-      name: "Aavin-PG-Handler",
-      script: ".next/standalone/server.js",
-      cwd: "/home/ec2-user/var/www/uat/AavinPGHandlerWebApp",
-      exec_mode: "fork",
+      name: 'Aavin-SCM-CB',
+      script: 'npm',
+      args: 'start',
+      cwd: '/var/www/uat/AavinPGHandlerWebApp',
       instances: 1,
+      autorestart: true,
+      watch: true,
+      max_memory_restart: '1G',
       env: {
-        NODE_ENV: "production",
-        PORT: 3003
-      }
-    }
-  ]
+        NODE_ENV: 'development',
+        PORT: 3003,
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        PORT: 3003,
+      },
+    },
+  ],
 };
