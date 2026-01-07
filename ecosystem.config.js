@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'Aavin-Payment-Test',
+      name: 'Aavin-PG-Handler',
       script: 'npm',
       args: 'start',
       cwd: '/home/ec2-user/var/www/uat/TestNextProject',
