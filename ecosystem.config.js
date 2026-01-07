@@ -2,12 +2,11 @@ module.exports = {
   apps: [
     {
       name: 'Aavin-PG-Handler',
-      script: 'npm',
+      script: "dist/index.js",
       args: 'start',
-      cwd: '/home/ec2-user/var/www/uat/AavinPGHandlerWebApp',
       instances: 1,
       autorestart: true,
-      watch: true,
+      watch: false,
       max_memory_restart: '1G',
       env: {
         NODE_ENV: 'development',
