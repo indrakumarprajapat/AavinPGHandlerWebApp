@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'Aavin-SCM-CB',
+      name: 'Aavin-PG-Handler',
       script: 'npm',
       args: 'start',
       cwd: '/var/www/uat/AavinPGHandlerWebApp',
