@@ -4,7 +4,7 @@ module.exports = {
       name: 'Aavin-PG-Handler',
       script: 'npm',
       args: 'start',
-      cwd: '/var/www/uat/AavinPGHandlerWebApp',
+      cwd: '/var/www/prod/AavinPGHandlerWebApp',
       instances: 1,
       autorestart: true,
       watch: true,
