@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       'Invalid': 'failed',
       'Timeout': 'failed'
     };
-    
+
     const status = statusMap[data.order_status] || 'failed';
 
     const params = new URLSearchParams({
