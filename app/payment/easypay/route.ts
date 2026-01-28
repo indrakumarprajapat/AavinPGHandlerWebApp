@@ -14,6 +14,22 @@ export async function GET(request: NextRequest) {
 
     const decryptedData = decodeURIComponent(data);
     const paymentUrl = process.env.EASYPAY_PAYMENT_URL || 'https://uat-etendering.axisbank.co.in/easypay2.0/frontend/index.php/api/payment';
+    
+    // Get encrypted corp code from backend API
+    const backendResponse = await fetch(`${process.env.BACKEND_API_URL}/bapi/orders/create-easypay-order`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderType: 1,
+        morningSlotId: 3339,
+        eveningSlotId: 3339,
+      })
+    });
+    
+    const backendData = await backendResponse.json();
+    const encryptedCorp = backendData.encryptedCorp || '';
 
     // Create HTML page that will auto-submit to Axis Bank from server
     const html = `
@@ -52,6 +68,7 @@ export async function GET(request: NextRequest) {
           
           <form method="POST" action="${paymentUrl}" id="paymentForm">
             <input type="hidden" name="i" value="${decryptedData}" />
+            <input type="hidden" name="coop" value="${encryptedCorp}" />
           </form>
           
           <script>
