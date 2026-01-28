@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.redirect(new URL(`${process.env.BASE_URL}payment/response?status=error&message=No response data`));
     }
 
-    const backendResponse = await fetch(process.env.BACKEND_API_URL!, {
+    const backendResponse = await fetch(process.env.BACKEND_API_URL_FOR_CCAVENUE!, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
